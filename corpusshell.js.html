@@ -29,7 +29,10 @@
  * @fileOverview Contains all the helper methods that are called from index.html which do
  * some preliminary checks and then delegate the work to the specialized classes. It also provides the ui logic for the sidebar.&lt;br/>
  * This file has some sections which are just instructions and are not wraped into a function block.
- * Main entry points here are {@link module:corpus_shell~SaveProfileAs}, {@link module:corpus_shell~CreateNewProfile},
+ * Main entry points here are {@link module:corpus_shell~doOnDocumentReady} which is passed to jQuery as the $(document).ready() handler,
+ * {@link module:corpus_shell~SaveProfileAs}, {@link module:corpus_shell~CreateNewProfile}, {@link module:corpus_shell~LoadProfile} and {@link module:corpus_shell~DeleteProfile}
+ * which are activated by correponding buttons in the side bar, {@link module:corpus_shell~GetUserData} which is used by the Refresh user profiles button and
+ * {@link module:corpus_shell~ShowIndexCache} which provides the Show/Hide indexes functionality.
  */
 
 /**
@@ -80,9 +83,6 @@ var searchPanelCount = 1;
 $.storage = new $.store();
 var Indexes = null;
 
-// is now set in params.js
-//var baseURL = "/cs2/corpus_shell";
-
 /**
  * @desc Get parameters from the supplied uri/url as a "map" (a JavaScript object which properties correspond to the parameters).
  * @param {url} url Some url witch contains parameters to be converted to a "map".
@@ -119,7 +119,9 @@ function GetUrlParams(url)
  * &lt;li>Tries to get a user id.&lt;/li>
  * &lt;li>Initiates asynchrounous loading of the profiles and the index data.&lt;/li>
  * &lt;li>Installs a handler for the {@link module:corpus_shell~PanelManager#event:onUpdated} event of {@link module:corpus_shell~PanelController}.&lt;/li>
- * &lt;li>Displays a URL which contains the current user ID in DOM element designated by #userid&lt;/li>
+ * &lt;li>Displays a URL which contains the current user ID in a DOM element designated by #userid&lt;/li>
+ * &lt;li>Generates a drop down list with search targets using {@link module:corpus_shell~GenerateSearchCombo} into the DOM element designated by #searchbuttons and preselects the first item&lt;/li>
+ * &lt;li>Generates a drop down list with profiles using {@link module:corpus_shell~GenerateProfileCombo} right after the DOM element designated by #profiledel and preselects the first item&lt;/li>
  * &lt;/ol>
  */
 function doOnDocumentReady ()
@@ -174,6 +176,13 @@ function doOnDocumentReady ()
     }
 
     $("#userid").val(GenerateUseridLink(userId));
+    
+    var scombo = GenerateSearchCombo(0);
+    $(scombo).css("margin-top", "5px");
+    $("#searchbuttons").append(scombo);
+
+    var pcombo = GenerateProfileCombo(0);
+    $("#profiledel").after(pcombo);
 }
 $(doOnDocumentReady);
 
@@ -254,6 +263,9 @@ function GetUserData(userId)
   );
 }
 
+/**
+ * Loads the {@link module:corpus_shell~ResourceController}, a {@link module:corpus_shell~ResourceManager}, with data stored in indexCache.json.
+ */
 function LoadIndexCache()
 {
   ResourceController.ClearResources();
@@ -283,6 +295,12 @@ function LoadIndexCache()
   });
 }
 
+/**
+ * @param {Object} inVal Some arbitarily deep nested Object.
+ * @desc Provides a recursive algorithm to construct the json code needed to represent a hierarchical object structure.&lt;br/>
+ * The actual recursive function is called _json_encode.
+ * @return {string} JSON string representing the object hierarchy.
+ */
 function json_encode(inVal)
 {
   return _json_encode(inVal).join('');
@@ -436,16 +454,12 @@ function ToggleSideBarHiLight(hi)
     $(".sidebartoggle").css("background-color", "#214F75");
 }
 
-$(function()
-{
-  var scombo = GenerateSearchCombo(0);
-  $(scombo).css("margin-top", "5px");
-  $("#searchbuttons").append(scombo);
-
-  var pcombo = GenerateProfileCombo(0);
-  $("#profiledel").after(pcombo);
-});
-
+/**
+ * @param {number} [idx] Index of an entry to be preselected.
+ * @param {string} [selEntry] Name of an entry to be preselected. If supplied idx is ignored.
+ * @desc Creates a drop down list containing all profiles known to {@link module:corpus_shell~ProfileController}.
+ * @return {Element} A select DOM Element which is usually realized as a drop down list. Its id is #profilecombo. This element is also of class .searchcombo.
+ */
 function GenerateProfileCombo(idx, selEntry)
 {
   var profilecombo = document.createElement('select');
@@ -482,6 +496,11 @@ function GenerateProfileCombo(idx, selEntry)
   return profilecombo;
 }
 
+/**
+ * @param {string} [selEntry] Name of the profile to be selected.
+ * @desc Replaces the DOM element with the id of #profilecombo with a newly generated one.
+ * @return -  
+ */
 function RefreshProfileCombo(selEntry)
 {
   var pcombo = GenerateProfileCombo(0, selEntry);
@@ -493,8 +512,8 @@ function RefreshProfileCombo(selEntry)
 /**
  * @public
  * @param config {number} Item that should be preselected.
- * @desc Creates a combo box using all the items in {@link module:corpus_shell~SearchConfig}
- * @return {Node} A select node with option child nodes. These selct nodes are of class searchcombo.
+ * @desc Creates a drop down list using all the items in {@link module:corpus_shell~SearchConfig}
+ * @return {Element} A select DOM element which is usually realized as a drop down list. These select nodes are of class .searchcombo.
  */
 function GenerateSearchCombo(config)
 {
@@ -663,6 +682,11 @@ function SaveProfileAs(newName)
   }
 }
 
+/**
+ * @param {string} newName Name of the profile to be createed.
+ * @desc Creates a new profile with the given name and saves that profile.
+ * @return -
+ */
 function CreateNewProfile(newName)
 {
   if (newName == "")
@@ -680,6 +704,12 @@ function CreateNewProfile(newName)
   }
 }
 
+/**
+ * @param {string} profileName Name of the profile to be deleted.
+ * @desc Deletes the given profile if it's not loaded and not the default profile.
+ * Asks the user to confirm before actually deleting. This also saves the new list of profiles.
+ * @return -
+ */
 function DeleteProfile(profileName)
 {
   if (PanelController.ProfileName == profileName)
@@ -801,7 +831,7 @@ function ShowIndexCache()
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a> on Thu Aug 01 2013 18:09:04 GMT+0200 (MESZ)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a> on Fri Aug 02 2013 16:41:58 GMT+0200 (MESZ)
 </footer>
 
 <script> prettyPrint(); </script>
