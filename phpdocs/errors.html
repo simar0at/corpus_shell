@@ -10,11 +10,8 @@
 						<a href="#Post-parsing">Post-parsing</a><br>
 <a href="#cache.php">cache.php</a><br>
 <a href="#debug.php">debug.php</a><br>
-<a href="#diagnostics.php">diagnostics.php</a><br>
 <a href="#error.php">error.php</a><br>
-<a href="#fcs.resource.config.php">fcs.resource.config.php</a><br>
 <a href="#GlossaryOnSRU.php">GlossaryOnSRU.php</a><br>
-<a href="#initcaches.php">initcaches.php</a><br>
 <a href="#initconfigcache.php">initconfigcache.php</a><br>
 <a href="#langrefs_ar.php">langrefs_ar.php</a><br>
 <a href="#langrefs_da.php">langrefs_da.php</a><br>
@@ -30,13 +27,10 @@
 <a href="#langrefs_ro.php">langrefs_ro.php</a><br>
 <a href="#langrefs_ru.php">langrefs_ru.php</a><br>
 <a href="#langrefs_sv.php">langrefs_sv.php</a><br>
-<a href="#populateIndexCache.php">populateIndexCache.php</a><br>
 <a href="#ProfileOnSRU.php">ProfileOnSRU.php</a><br>
 <a href="#sami-config.php">sami-config.php</a><br>
 <a href="#SampleTextOnSRU.php">SampleTextOnSRU.php</a><br>
 <a href="#saveUserData.php">saveUserData.php</a><br>
-<a href="#showIndexCache.php">showIndexCache.php</a><br>
-<a href="#switch.php">switch.php</a><br>
 <a href="#vlibDate.php">vlibDate.php</a><br>
 <a href="#vlibIni.php">vlibIni.php</a><br>
 <a href="#vlibTemplate.php">vlibTemplate.php</a><br>
@@ -44,6 +38,18 @@
 <a name="Post-parsing"></a>
 <h1>Post-parsing</h1>
 <h2>Warnings:</h2><br>
+<b>Warning</b> - 
+duplicate function element "diagnostics" in file M:\git\corpus_shell\modules\mysqlonsru\ProfileOnSRU.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - 
+duplicate function element "diagnostics" in file M:\git\corpus_shell\modules\mysqlonsru\SampleTextOnSRU.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - 
+duplicate function element "diagnostics" in file M:\git\corpus_shell\modules\mysqlonsru\WiktionaryOnSRU.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - 
+duplicate function element "explain" in file M:\git\corpus_shell\modules\mysqlonsru\GlossaryOnSRU.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
 <b>Warning</b> - 
 duplicate function element "diagnostics" in file M:\git\corpus_shell\modules\mysqlonsru\GlossaryOnSRU.php will be ignored.
 Use an @ignore tag on the original if you want this case to be documented.<br>
@@ -57,52 +63,13 @@ Use an @ignore tag on the original if you want this case to be documented.<br>
 duplicate function element "GetNodeValue" in file M:\git\corpus_shell\modules\fcs-aggregator\showIndexCache.php will be ignored.
 Use an @ignore tag on the original if you want this case to be documented.<br>
 <b>Warning</b> - 
-duplicate function element "decodecharrefs" in file M:\git\corpus_shell\modules\mysqlonsru\SampleTextOnSRU.php will be ignored.
-Use an @ignore tag on the original if you want this case to be documented.<br>
-<b>Warning</b> - 
 duplicate function element "GetNodeValue" in file M:\git\corpus_shell\modules\fcs-aggregator\switch.php will be ignored.
-Use an @ignore tag on the original if you want this case to be documented.<br>
-<b>Warning</b> - 
-duplicate function element "explain" in file M:\git\corpus_shell\modules\mysqlonsru\SampleTextOnSRU.php will be ignored.
-Use an @ignore tag on the original if you want this case to be documented.<br>
-<b>Warning</b> - 
-duplicate function element "diagnostics" in file M:\git\corpus_shell\modules\mysqlonsru\SampleTextOnSRU.php will be ignored.
-Use an @ignore tag on the original if you want this case to be documented.<br>
-<b>Warning</b> - 
-duplicate function element "diagnostics" in file M:\git\corpus_shell\modules\mysqlonsru\ProfileOnSRU.php will be ignored.
-Use an @ignore tag on the original if you want this case to be documented.<br>
-<b>Warning</b> - 
-duplicate function element "diagnostics" in file M:\git\corpus_shell\modules\mysqlonsru\WiktionaryOnSRU.php will be ignored.
-Use an @ignore tag on the original if you want this case to be documented.<br>
-<b>Warning</b> - 
-duplicate function element "explain" in file M:\git\corpus_shell\modules\mysqlonsru\GlossaryOnSRU.php will be ignored.
 Use an @ignore tag on the original if you want this case to be documented.<br>
 <b>Warning</b> - 
 duplicate function element "explain" in file M:\git\corpus_shell\modules\mysqlonsru\ProfileOnSRU.php will be ignored.
 Use an @ignore tag on the original if you want this case to be documented.<br>
 <b>Warning</b> - 
-duplicate function element "decodecharrefs" in file M:\git\corpus_shell\modules\mysqlonsru\ProfileOnSRU.php will be ignored.
-Use an @ignore tag on the original if you want this case to be documented.<br>
-<b>Warning</b> - 
-duplicate function element "decodecharrefs" in file M:\git\corpus_shell\modules\mysqlonsru\WiktionaryOnSRU.php will be ignored.
-Use an @ignore tag on the original if you want this case to be documented.<br>
-<b>Warning</b> - 
-duplicate function element "explain" in file M:\git\corpus_shell\modules\mysqlonsru\WiktionaryOnSRU.php will be ignored.
-Use an @ignore tag on the original if you want this case to be documented.<br>
-<b>Warning</b> - 
-duplicate define element "FATAL" in file M:\git\corpus_shell\modules\utils-php\vlib\vlibTemplate\error.php will be ignored.
-Use an @ignore tag on the original if you want this case to be documented.<br>
-<b>Warning</b> - 
-duplicate define element "WARNING" in file M:\git\corpus_shell\modules\utils-php\vlib\vlibTemplate\error.php will be ignored.
-Use an @ignore tag on the original if you want this case to be documented.<br>
-<b>Warning</b> - 
-duplicate define element "NOTICE" in file M:\git\corpus_shell\modules\utils-php\vlib\vlibTemplate\error.php will be ignored.
-Use an @ignore tag on the original if you want this case to be documented.<br>
-<b>Warning</b> - 
-duplicate function element "decodecharrefs" in file M:\git\corpus_shell\modules\mysqlonsru\GlossaryOnSRU.php will be ignored.
-Use an @ignore tag on the original if you want this case to be documented.<br>
-<b>Warning</b> - 
-duplicate function element "search" in file M:\git\corpus_shell\modules\mysqlonsru\WiktionaryOnSRU.php will be ignored.
+duplicate function element "explain" in file M:\git\corpus_shell\modules\mysqlonsru\SampleTextOnSRU.php will be ignored.
 Use an @ignore tag on the original if you want this case to be documented.<br>
 <b>Warning</b> - 
 duplicate function element "search" in file M:\git\corpus_shell\modules\mysqlonsru\GlossaryOnSRU.php will be ignored.
@@ -112,6 +79,33 @@ duplicate function element "search" in file M:\git\corpus_shell\modules\mysqlons
 Use an @ignore tag on the original if you want this case to be documented.<br>
 <b>Warning</b> - 
 duplicate function element "search" in file M:\git\corpus_shell\modules\mysqlonsru\SampleTextOnSRU.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - 
+duplicate function element "search" in file M:\git\corpus_shell\modules\mysqlonsru\WiktionaryOnSRU.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - 
+duplicate function element "decodecharrefs" in file M:\git\corpus_shell\modules\mysqlonsru\WiktionaryOnSRU.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - 
+duplicate function element "decodecharrefs" in file M:\git\corpus_shell\modules\mysqlonsru\SampleTextOnSRU.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - 
+duplicate function element "explain" in file M:\git\corpus_shell\modules\mysqlonsru\WiktionaryOnSRU.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - 
+duplicate function element "decodecharrefs" in file M:\git\corpus_shell\modules\mysqlonsru\GlossaryOnSRU.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - 
+duplicate function element "decodecharrefs" in file M:\git\corpus_shell\modules\mysqlonsru\ProfileOnSRU.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - 
+duplicate define element "FATAL" in file M:\git\corpus_shell\modules\utils-php\vlib\vlibTemplate\error.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - 
+duplicate define element "WARNING" in file M:\git\corpus_shell\modules\utils-php\vlib\vlibTemplate\error.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - 
+duplicate define element "NOTICE" in file M:\git\corpus_shell\modules\utils-php\vlib\vlibTemplate\error.php will be ignored.
 Use an @ignore tag on the original if you want this case to be documented.<br>
 <a name="BibliographyOnSRU.php"></a>
 <h1>BibliographyOnSRU.php</h1>
@@ -125,31 +119,19 @@ Use an @ignore tag on the original if you want this case to be documented.<br>
 <h1>debug.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 26</b> - DocBlock would be page-level, but precedes class "vlibTemplateDebug", use another DocBlock to document the file<br>
-<a name="diagnostics.php"></a>
-<h1>diagnostics.php</h1>
-<h2>Warnings:</h2><br>
-<b>Warning on line 115</b> - File "M:\git\corpus_shell\modules\utils-php\diagnostics.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="error.php"></a>
 <h1>error.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 57</b> - File "M:\git\corpus_shell\modules\utils-php\vlib\vlibDate\error.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <b>Warning on line 94</b> - File "M:\git\corpus_shell\modules\utils-php\vlib\vlibTemplate\error.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
-<a name="fcs.resource.config.php"></a>
-<h1>fcs.resource.config.php</h1>
-<h2>Warnings:</h2><br>
-<b>Warning on line 13</b> - File "M:\git\corpus_shell\modules\fcs-aggregator\fcs.resource.config.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="GlossaryOnSRU.php"></a>
 <h1>GlossaryOnSRU.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 255</b> - File "M:\git\corpus_shell\modules\mysqlonsru\GlossaryOnSRU.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
-<a name="initcaches.php"></a>
-<h1>initcaches.php</h1>
-<h2>Warnings:</h2><br>
-<b>Warning on line 15</b> - Page-level DocBlock precedes "include "cacheconfig.php"", use another DocBlock to document the source element<br>
 <a name="initconfigcache.php"></a>
 <h1>initconfigcache.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 124</b> - File "M:\git\corpus_shell\modules\fcs-aggregator\initconfigcache.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 125</b> - @ignore tag used for global variable - just don't document the element "$query" will be ignored<br>
 <a name="langrefs_ar.php"></a>
 <h1>langrefs_ar.php</h1>
 <h2>Warnings:</h2><br>
@@ -206,10 +188,6 @@ Use an @ignore tag on the original if you want this case to be documented.<br>
 <h1>langrefs_sv.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 9</b> - File "M:\git\corpus_shell\modules\utils-php\vlib\vlibDate\langrefs_sv.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
-<a name="populateIndexCache.php"></a>
-<h1>populateIndexCache.php</h1>
-<h2>Warnings:</h2><br>
-<b>Warning on line 169</b> - File "M:\git\corpus_shell\modules\fcs-aggregator\populateIndexCache.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="ProfileOnSRU.php"></a>
 <h1>ProfileOnSRU.php</h1>
 <h2>Warnings:</h2><br>
@@ -226,14 +204,6 @@ Use an @ignore tag on the original if you want this case to be documented.<br>
 <h1>saveUserData.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 15</b> - Page-level DocBlock precedes "include "../utils-php/config.php"", use another DocBlock to document the source element<br>
-<a name="showIndexCache.php"></a>
-<h1>showIndexCache.php</h1>
-<h2>Warnings:</h2><br>
-<b>Warning on line 140</b> - File "M:\git\corpus_shell\modules\fcs-aggregator\showIndexCache.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
-<a name="switch.php"></a>
-<h1>switch.php</h1>
-<h2>Warnings:</h2><br>
-<b>Warning on line 669</b> - File "M:\git\corpus_shell\modules\fcs-aggregator\switch.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="vlibDate.php"></a>
 <h1>vlibDate.php</h1>
 <h2>Warnings:</h2><br>
@@ -251,7 +221,7 @@ Use an @ignore tag on the original if you want this case to be documented.<br>
 <h2>Warnings:</h2><br>
 <b>Warning on line 205</b> - File "M:\git\corpus_shell\modules\mysqlonsru\WiktionaryOnSRU.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 21 Aug 2013 18:04:00 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.5.0a1</a>
+		Documentation generated on Tue, 27 Aug 2013 19:07:26 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.5.0a1</a>
 	</p>
 	</body>
 </html>

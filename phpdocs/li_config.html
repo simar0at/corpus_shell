@@ -116,12 +116,26 @@ if (document.getElementById) {
 				
 			tree.add(tree_classe);
 		
+					var tree_function = new WebFXTreeItem('Function(s)', '');
+			tree_function.openIcon = 'media/images/function_folder.png';
+			tree_function.icon = 'media/images/function_folder.png';
+			
+							var fic = new WebFXTreeItem('Diagnostics', 'config/_utils-php---diagnostics.php.html#functionDiagnostics');
+				fic.openIcon = 'media/images/Function.png';
+				fic.icon = 'media/images/Function.png';
+				tree_function.add(fic);
+					
+			tree.add(tree_function);
 			
 					var tree_file = new WebFXTreeItem('File(s)', '');
 			tree_file.openIcon = 'media/images/folder.png';
 			tree_file.icon = 'media/images/folder.png';
 	
 							var file = new WebFXTreeItem('config.php', 'config/_utils-php---config.php.html');
+				file.openIcon = 'media/images/Page.png';
+				file.icon = 'media/images/Page.png';
+				tree_file.add(file);
+							var file = new WebFXTreeItem('diagnostics.php', 'config/_utils-php---diagnostics.php.html');
 				file.openIcon = 'media/images/Page.png';
 				file.icon = 'media/images/Page.png';
 				tree_file.add(file);

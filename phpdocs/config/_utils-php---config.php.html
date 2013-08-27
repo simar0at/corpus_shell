@@ -215,6 +215,9 @@
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Diagnostic message template file</p>
 <p class="description"><p>Path to the diagnostics template which is used to convey infomation about  malformed requests back to the user as required by the SRU Base Profile.  See also: <a href="http://www.loc.gov/standards/sru/specs/base-profile.html">http://www.loc.gov/standards/sru/specs/base-profile.html</a> and  <a href="http://www.loc.gov/standards/sru/specs/diagnostics.html">http://www.loc.gov/standards/sru/specs/diagnostics.html</a></p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../config/_utils-php---diagnostics.php.html#functionDiagnostics">Diagnostics()</a></li>
+			</ul>
 	
 		
 </div>
@@ -251,6 +254,9 @@
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Explain request response template file for the switch</p>
 <p class="description"><p>See also:</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnExplain">ReturnExplain()</a></li>
+			</ul>
 	
 		
 </div>
@@ -287,6 +293,10 @@
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Server's file system location for an FCS reply configuration file</p>
 <p class="description"><p>TODO What is the prupose of this?</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---initconfigcache.php.html">initconfigcache.php</a></li>
+			</ul>
 	
 		
 </div>
@@ -338,8 +348,12 @@
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">The hostname of the wev server</p>
-<p class="description"><p>To speed up xslt the servername ist replaced by &quot;localhost&quot;  FIXME: And that works how exactly?</p></p>
+<p class="short-description">The hostname of the web server</p>
+<p class="description"><p>To speed up eg. xslt every occurence of this domain name is replaced  by the loopback device for functions requesting data using URLs.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReplaceLocalHost">ReplaceLocalHost()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---initconfigcache.php.html">initconfigcache.php</a></li>
+			</ul>
 	
 		
 </div>
@@ -412,6 +426,9 @@
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Scan request response template file for a particular collection</p>
 <p class="description"><p>See also:</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnScan">ReturnScan()</a></li>
+			</ul>
 	
 		
 </div>
@@ -429,6 +446,9 @@
 
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Web location of corpus_shells JavaScript and CSS scripts</p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnXslT">ReturnXslT()</a></li>
+			</ul>
 	
 		
 </div>
@@ -464,6 +484,15 @@
 
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Server's file system location of the configuration file for the switch</p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetConfig">GetConfig()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetCompleteConfig">GetCompleteConfig()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetDefaultStyles">GetDefaultStyles()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---showIndexCache.php.html#functionGenerateConfigDictionary">GenerateConfigDictionary()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---initconfigcache.php.html#global$doc">$doc</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---populateIndexCache.php.html">populateIndexCache.php</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---initconfigcache.php.html">initconfigcache.php</a></li>
+			</ul>
 	
 		
 </div>
@@ -482,6 +511,9 @@
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Web location of the switch</p>
 <p class="description"><p>The switch provides a single endpoint for different possible upstream  endpoints and enhances their responses to provide additional formats for  retrieval like HTML snippets used by corpus_shell's AJAX</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---populateIndexCache.php.html">populateIndexCache.php</a></li>
+			</ul>
 	
 		
 </div>
@@ -522,6 +554,9 @@
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">The version of SRU the software supports</p>
 <p class="description"><p>Required values for the templates: The version of SRU currently  implemented. This also is a mandatory parameter even if we only  support this particular version.  See also: <a href="http://www.loc.gov/standards/sru/">http://www.loc.gov/standards/sru/</a></p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../config/_utils-php---diagnostics.php.html#functionDiagnostics">Diagnostics()</a></li>
+			</ul>
 	
 		
 </div>
@@ -539,6 +574,10 @@
 
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Path to the vlibTemplate engine</p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../config/_utils-php---diagnostics.php.html#functionDiagnostics">Diagnostics()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnScan">ReturnScan()</a></li>
+			</ul>
 	
 		
 </div>
@@ -564,7 +603,7 @@
 	
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 21 Aug 2013 18:03:48 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.5.0a1</a>
+		Documentation generated on Tue, 27 Aug 2013 19:07:12 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.5.0a1</a>
 	</p>
 	</div></body>
 </html>
