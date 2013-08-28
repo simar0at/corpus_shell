@@ -18,12 +18,15 @@
 				'uB_P_filterS_scan2view_v1.xsl');
 
         var docBoxes= new Array('dS_scan2view_v1.xsl', 
+				'dS_T_continue-rootS_scan2view_v1.xsl', 
 				'dS_T_headerS_scan2view_v1.xsl', 
 				'dS_M_srutermsS_scan2view_v1.xsl', 
+				'dS_M_srutermS_scan2view_v1.xsl', 
 				'dS_P_sortS_scan2view_v1.xsl', 
 				'dS_P_name_col_widthS_scan2view_v1.xsl', 
 				'dS_P_titleS_scan2view_v1.xsl', 
 				'dS_P_indexS_scan2view_v1.xsl', 
+				'dS_P_filterS_scan2view_v1.xsl', 
 				'dS_D_europeanS_scan2view_v1.xsl');
 
         var sourceBoxes= new Array('src_T_continue-rootS_scan2view_v1.xsl', 
@@ -515,6 +518,32 @@
                <table class="component">
                   <tbody>
                      <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_T_continue-rootS_scan2view_v1.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('dS_T_continue-rootS_scan2view_v1.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_T_continue-rootS_scan2view_v1.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>Standard callback from / template
+                                 
+                                 <p>
+                                    
+                                    <ul>
+                                       
+                                       <li class="doc">If a htmlpage is requested generates input elements for the user to do another scan.</li>
+                                       
+                                       <li class="doc">Wraps the HTML representation of the result terms in an HTML div element.</li>
+                                       
+                                    </ul>
+                                    
+                                 </p>
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
                         <td class="fCol">Namespace</td>
                         <td>No namespace</td>
                      </tr>
@@ -628,13 +657,8 @@
                         <td>
                            <div id="dS_T_headerS_scan2view_v1.xsl" style="display:block">
                               <div>
-                                 <h3>Description</h3><pre> &lt;sru:extraResponseData&gt;
-        &lt;fcs:countTerms&gt;619&lt;/fcs:countTerms&gt;
-        &lt;/sru:extraResponseData&gt;
-        &lt;sru:echoedScanRequest&gt;
-        &lt;sru:scanClause&gt;diary-month&lt;/sru:scanClause&gt;
-        &lt;sru:maximumTerms&gt;100&lt;/sru:maximumTerms&gt;        
-        &lt;/sru:echoedScanRequest&gt; </pre></div>
+                                 <h3>Description</h3>Generates an HTML div element containing inputs so the user can initiate another scan
+                              </div>
                            </div>
                         </td>
                      </tr>
@@ -762,15 +786,9 @@
                         <td>
                            <div id="dS_M_srutermsS_scan2view_v1.xsl" style="display:block">
                               <div>
-                                 <h3>Description</h3><pre> 
-sample data:        
-        &lt;sru:term&gt;
-        &lt;sru:value&gt;cartesian&lt;/sru:value&gt;
-        &lt;sru:numberOfRecords&gt;35645&lt;/sru:numberOfRecords&gt;
-        &lt;sru:displayTerm&gt;Carthesian&lt;/sru:displayTerm&gt;
-        &lt;sru:extraTermData&gt;&lt;/sru:extraTermData&gt;
-        &lt;/sru:term&gt;
-    </pre></div>
+                                 <h3>Description</h3>Operation scan returns any number of terms which are presented in HTML either nested
+                                 as lists aor tables
+                              </div>
                            </div>
                         </td>
                      </tr>
@@ -863,6 +881,34 @@ sample data:
                <table class="component">
                   <tbody>
                      <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_srutermS_scan2view_v1.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('dS_M_srutermS_scan2view_v1.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_srutermS_scan2view_v1.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>A term consits of a number for this term and the term itself
+                                 
+                                 <p>The term is presented as a link that can be used to scan for that term.</p>
+                                 
+                                 <p>
+                                    Sample data:
+                                    <pre>
+            &lt;sru:term&gt;
+                &lt;sru:value&gt;cartesian&lt;/sru:value&gt;
+                &lt;sru:numberOfRecords&gt;35645&lt;/sru:numberOfRecords&gt;
+                &lt;sru:displayTerm&gt;Carthesian&lt;/sru:displayTerm&gt;
+                &lt;sru:extraTermData&gt;&lt;/sru:extraTermData&gt;
+            &lt;/sru:term&gt;
+</pre>
+                                    </p>
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
                         <td class="fCol">Namespace</td>
                         <td>No namespace</td>
                      </tr>
@@ -888,7 +934,8 @@ sample data:
                                        <div class="listGrouping">
                                           <div class="refItemBlock"><a href="scan2view_v13.html#P_formatS_..params.xsl" target="_self" title="No namespace" onclick="updPT('../params.xsl')">format</a><span class="refItemSep">;</span></div>
                                           <div class="refItemBlock"><a href="scan2view_v10.html#P_indexS_scan2view_v1.xsl" target="_self" title="No namespace" onclick="updPT('scan2view_v1.xsl')">index</a><span class="refItemSep">;</span></div>
-                                          <div class="refItemBlock"><a href="scan2view_v10.html#P_list-modeS_scan2view_v1.xsl" target="_self" title="No namespace" onclick="updPT('scan2view_v1.xsl')">list-mode</a></div>
+                                          <div class="refItemBlock"><a href="scan2view_v10.html#P_list-modeS_scan2view_v1.xsl" target="_self" title="No namespace" onclick="updPT('scan2view_v1.xsl')">list-mode</a><span class="refItemSep">;</span></div>
+                                          <div class="refItemBlock"><a href="scan2view_v10.html#P_scanClauseS_scan2view_v1.xsl" target="_self" title="No namespace" onclick="updPT('scan2view_v1.xsl')">scanClause</a></div>
                                        </div>
                                     </td>
                                  </tr>
@@ -922,7 +969,7 @@ sample data:
   </span><span class="tXSLEl">&lt;xsl:variable</span><span class="tAN"> name=</span><span class="tAV">"href"</span><span class="tXSLEl">&gt;</span><span class="tI">
     </span><span class="tC">&lt;!--                        special handling for special index --&gt;</span><span class="tI">
     </span><span class="tXSLEl">&lt;xsl:choose</span><span class="tXSLEl">&gt;</span><span class="tI">
-      </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$index = 'fcs.resource'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$scanClause = 'fcs.resource'"</span><span class="tXSLEl">&gt;</span><span class="tI">
         </span><span class="tC">&lt;!--                    &lt;xsl:value-of select="utils:formURL('explain', $format, sru:value)"/&gt;--&gt;</span><span class="tI">
         </span><span class="tXSLEl">&lt;xsl:call-template</span><span class="tAN"> name=</span><span class="tAV">"formURL"</span><span class="tXSLEl">&gt;</span><span class="tI">
           </span><span class="tXSLEl">&lt;xsl:with-param</span><span class="tAN"> name=</span><span class="tAV">"action"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">explain</span><span class="tXSLEl">&lt;/xsl:with-param&gt;</span><span class="tI">
@@ -1317,10 +1364,11 @@ sample data:
                            <div id="uB_P_scanClauseS_scan2view_v1.xsl" style="display:block">
                               <table class="uBT">
                                  <tr>
-                                    <td class="fCol">Template</td>
+                                    <td class="fCol">Templates</td>
                                     <td>
                                        <div class="listGrouping">
-                                          <div class="refItemBlock"><a href="scan2view_v11.html#T_formURLS_..commons_v1.xsl" target="_self" title="No namespace" onclick="updPT('../commons_v1.xsl')"><span class="nRf">formURL</span></a></div>
+                                          <div class="refItemBlock"><a href="scan2view_v11.html#T_formURLS_..commons_v1.xsl" target="_self" title="No namespace" onclick="updPT('../commons_v1.xsl')"><span class="nRf">formURL</span></a><span class="refItemSep">;</span></div>
+                                          <div class="refItemBlock"><a href="scan2view_v10.html#M_srutermS_scan2view_v1.xsl" target="_self" title="No namespace" onclick="updPT('scan2view_v1.xsl')"><span class="mRf">sru:term</span></a></div>
                                        </div>
                                     </td>
                                  </tr>
@@ -1403,6 +1451,25 @@ sample data:
                         </td>
                         <td>
                            <div id="dS_P_indexS_scan2view_v1.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>The index is defined as the part of the scanClause before the '='
+                                 
+                                 <p>
+                                    This is one possibility according to the
+                                    <a href="http://www.loc.gov/standards/sru/specs/scan.html" target="_self">SRU documentation</a>.
+                                    The documentation states that scanClause can be "expressed as a complete index, relation,
+                                    term clause in CQL". 
+                                    
+                                 </p>
+                                 
+                                 <p>
+                                    Note: for the special scan clause fcs.resource this is an empty string.
+                                    See <a href="http://www.w3.org/TR/xpath/#function-substring-before" target="_self">.XPath language definition</a>
+                                    
+                                 </p>
+                                 
+                              </div>
+                              <hr />
                               <div>
                                  <h3>Description</h3><pre>    &lt;xsl:param name="scanClause-array" select="tokenize($scanClause,'=')"/&gt;</pre></div>
                            </div>
@@ -1495,6 +1562,34 @@ sample data:
             <td class="rt_cnt">
                <table class="component">
                   <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_P_filterS_scan2view_v1.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('dS_P_filterS_scan2view_v1.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_P_filterS_scan2view_v1.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>The filter is defined as the part of the scanClause after the '='
+                                 
+                                 <p>
+                                    This is one possibility according to the
+                                    <a href="http://www.loc.gov/standards/sru/specs/scan.html" target="_self">SRU documentation</a>.
+                                    The documentation states that scanClause can be "expressed as a complete index, relation,
+                                    term clause in CQL". 
+                                    
+                                 </p>
+                                 
+                                 <p>
+                                    Note: for the special scan clause fcs.resource this is an empty string.
+                                    See <a href="http://www.w3.org/TR/xpath/#function-substring-after" target="_self">.XPath language definition</a>
+                                    
+                                 </p>
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
                      <tr>
                         <td class="fCol">Namespace</td>
                         <td>No namespace</td>
