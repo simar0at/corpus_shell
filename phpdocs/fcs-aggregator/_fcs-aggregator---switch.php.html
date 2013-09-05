@@ -1,0 +1,1315 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos  -->
+			<title>Docs for page switch.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+						<script src="../media/lib/classTree.js"></script>
+												<script language="javascript" type="text/javascript">
+				var imgPlus = new Image();
+				var imgMinus = new Image();
+				imgPlus.src = "../media/images/plus.png";
+				imgMinus.src = "../media/images/minus.png";
+				
+				function showNode(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+							var oImg = document.layers["img" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+							var oImg = document.all["img" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+							var oImg = document.getElementById("img" + Node);
+									break;
+							}
+					oImg.src = imgMinus.src;
+					oTable.style.display = "block";
+				}
+				
+				function hideNode(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+							var oImg = document.layers["img" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+							var oImg = document.all["img" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+							var oImg = document.getElementById("img" + Node);
+									break;
+							}
+					oImg.src = imgPlus.src;
+					oTable.style.display = "none";
+				}
+				
+				function nodeIsVisible(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+									break;
+							}
+					return (oTable && oTable.style.display == "block");
+				}
+				
+				function toggleNodeVisibility(Node){
+					if (nodeIsVisible(Node)){
+						hideNode(Node);
+					}else{
+						showNode(Node);
+					}
+				}
+			</script>
+					</head>
+		<body>
+			<div class="page-body">			
+<h2 class="file-name"><img src="../media/images/Page_logo.png" alt="File" style="vertical-align: middle">/fcs-aggregator/switch.php</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+									<a href="#sec-includes">Includes</a>
+			|									<a href="#sec-variables">Variables</a>
+			|							<a href="#sec-functions">Functions</a>
+			</div>
+	<div class="info-box-body">	
+		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Switch script that queries upstream resources and transforms their response if requested</p>
+<p class="description"><p><br />  Uses the file named in $fcsConfig if it exists to get $configName.<br />  <br />  Parameters for operation &quot;explain&quot;<br />  <pre>      Params - taken from <a href="http://www.loc.gov/standards/sru/specs/explain.html">http://www.loc.gov/standards/sru/specs/explain.html</a>
+      Name              type        Description
+      operation         Mandatory   The string: 'explain'.
+      version           Mandatory   The version of the request, and a statement by the client
+                                    that it wants the response to be less than, or preferably
+                                    equal to, that version. See Versions.
+      recordPacking     Optional    A string to determine how the explain record should be
+                                    escaped in the response. Defined values are 'string' and
+                                    'xml'. The default is 'xml'. See Records.
+      stylesheet        Optional    A URL for a stylesheet. The client requests that the server
+                                    simply return this URL in the response. See Stylesheets.
+      extraRequestData  Optional    Provides additional information for the server to process.
+                                    See Extensions.</pre>  Parameters for operation &quot;scan&quot;<br />  <pre>      Params - taken from <a href="http://www.loc.gov/standards/sru/specs/scan.html">http://www.loc.gov/standards/sru/specs/scan.html</a>
+      Name              type        Description
+      operation         mandatory   The string: 'scan'.
+      version           mandatory   The version of the request, and a statement by the client that
+                                    it wants the response to be less than, or preferably equal to,
+                                    that version. See Versions.
+      scanClause        mandatory   The index to be browsed and the start point within it,
+                                    expressed as a complete index, relation, term  clause in CQL.
+                                    See CQL.
+      responsePosition  optional    The position within the list of terms returned where the
+                                    client would like the start term to occur. If the position
+                                    given is 0, then the term should be immediately before the
+                                    first term in the response. If the position given is 1, then
+                                    the term should be first in the list, and so forth up to the
+                                    number of terms requested plus 1, meaning that the term should
+                                    be immediately after the last term in the response, even if
+                                    the number of terms returned is less than the number requested.
+                                    The range of values is 0 to the number of terms requested plus
+                                    1. The default value is 1.
+      maximumTerms      optional    The number of terms which the client requests be returned. The
+                                    actual number returned may be less than this, for example if
+                                    the end of the term list is reached, but may not be more. The
+                                    explain record for the database may indicate the maximum
+                                    number of terms which the server will return at once. All
+                                    positive integers are valid for this parameter. If not
+                                    specified, the default is server determined.
+      stylesheet        optional    A URL for a stylesheet. The client requests that the server
+                                    simply return this URL in the response. See Stylesheets.
+      extraRequestData  optional    Provides additional information for the server to process. See
+                                    Extensions.</pre>  Parameters for operation &quot;searchRetrieve&quot;<br />  <pre>      Params - taken from <a href="http://www.loc.gov/standards/sru/specs/search-retrieve.html">http://www.loc.gov/standards/sru/specs/search-retrieve.html</a>
+      Name              type        Description
+      operation         mandatory   The string: 'searchRetrieve'.
+      version           mandatory   The version of the request, and a statement by the client that
+                                    it wants the response to be less than, or preferably equal to,
+                                    that version. See Version.
+      query             mandatory   Contains a query expressed in CQL to be processed by the
+                                    server. See CQL.
+      startRecord       optional    The position within the sequence of matched records of the
+                                    first record to be returned. The first position in the
+                                    sequence is 1. The value supplied MUST be greater than 0. The
+                                    default value if not supplied is 1.
+      maximumRecords    optional    The number of records requested to be returned. The value must
+                                    be 0 or greater. Default value if not supplied is determined
+                                    by the server. The server MAY return less than this number of
+                                    records, for example if there are fewer matching records than
+                                    requested, but MUST NOT return more than this number of records.
+      recordPacking     optional    A string to determine how the record should be escaped in the
+                                    response. Defined values are 'string' and 'xml'. The default is
+                                    'xml'. See Records.
+      recordSchema      optional    The schema in which the records MUST be returned. The value is
+                                    the URI identifier for the schema or the short name for it
+                                    published by the server. The default value if not supplied is
+                                    determined by the server. See Record Schemas.
+      resultSetTTL      optional    The number of seconds for which the client requests that the
+                                    result set created should be maintained. The server MAY choose
+                                    not to fulfil this request, and may respond with a different
+                                    number of seconds. If resultSetTTL is not supplied then the
+                                    server will determine the value. See Result Sets.
+      stylesheet        optional    A URL for a stylesheet. The client requests that the server
+                                    simply return this URL in the response. See Stylesheets.
+      extraRequestData  optional    Provides additional information for the server to process. See
+                                    Extensions.</pre></p></p>
+	<ul class="tags">
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$startRecord">$startRecord</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$scanClause">$scanClause</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$scanClause">$scanClause</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$resultSetTTL">$resultSetTTL</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$stylesheet">$stylesheet</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$version">$version</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionHandleXFormatCases">HandleXFormatCases()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetDefaultStyles">GetDefaultStyles()</a></li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---diagnostics.php.html#functionDiagnostics">Diagnostics()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$xcontext">$xcontext</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$responsePosition">$responsePosition</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$recordSchema">$recordSchema</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$maximumTerms">$maximumTerms</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$maximumRecords">$maximumRecords</a></li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---config.php.html#global$fcsConfig">$fcsConfig</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$extraRequestData">$extraRequestData</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$operation">$operation</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$operation">$operation</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$recordPacking">$recordPacking</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$query">$query</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$query">$query</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---fcs.resource.config.php.html#global$configName">$configName</a></li>
+			</ul>
+		
+			</div>
+</div>
+		
+
+	<a name="sec-includes"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Includes</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Includes</span>
+			|										<a href="#sec-variables">Variables</a>
+				|										<a href="#sec-functions">Functions</a>
+					</div>
+		<div class="info-box-body">	
+			<a name="_$fcsConfig"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Page.png" alt=" " />
+		<span class="include-title">
+			<span class="include-type">include</span>
+			(<span class="include-name">$fcsConfig</span>)
+			(line <span class="line-number">159</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+</div>
+<a name="___/utils-php/diagnostics_php"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Page.png" alt=" " />
+		<span class="include-title">
+			<span class="include-type">include</span>
+			(<span class="include-name"><a href="../config/_utils-php---diagnostics.php.html">"../utils-php/diagnostics.php"</a></span>)
+			(line <span class="line-number">146</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Common implementation for needed to return sru compliant error messages</p>
+	
+</div>
+<a name="___/utils-php/config_php"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Page.png" alt=" " />
+		<span class="include-title">
+			<span class="include-type">include</span>
+			(<span class="include-name"><a href="../config/_utils-php---config.php.html">"../utils-php/config.php"</a></span>)
+			(line <span class="line-number">141</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Load the common config file</p>
+	
+</div>
+		</div>
+	</div>
+	
+	
+	<a name="sec-variables"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-includes">Includes</a>
+				|									<span class="disabled">Variables</span>
+			|							<a href="#sec-functions">Functions</a>
+					</div>
+		<div class="info-box-body">	
+			<a name="global$context" id="global$context"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$context</span>
+						(line <span class="line-number">1010</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">All contexts/resources given by the HTTP GET parameter &quot;x-context&quot; as array</p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionHandleXFormatCases">HandleXFormatCases()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$xcontext">$xcontext</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$extraRequestData" id="global$extraRequestData"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$extraRequestData</span>
+						(line <span class="line-number">957</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Provides additional information for the server to process.</p>
+<p class="description"><p>See <a href="http://www.loc.gov/standards/sru/specs/common.html#extraData">Extensions</a>.<br />  Optional.<br />  Passed as HTTP GET parameter &quot;extraRequestData&quot;. If the parameter is missing &quot;&quot; is assumed.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$fcsConfigFound" id="global$fcsConfigFound"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$fcsConfigFound</span>
+						(line <span class="line-number">136</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">If there is the $fcsConfig file is loaded.</p>
+<p class="description"><p>If this file is loaded the $configName cache  variable is available.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetCompleteConfig">GetCompleteConfig()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetConfig">GetConfig()</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$globalStyles" id="global$globalStyles"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$globalStyles</span>
+						(line <span class="line-number">154</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Array (a map) containing default xsl style sheets</p>
+<p class="description"><p>The keys for the map are searchRetrieve, scan, explain and default.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetXslStyle">GetXslStyle()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetDefaultStyles">GetDefaultStyles()</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$maximumRecords" id="global$maximumRecords"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$maximumRecords</span>
+						(line <span class="line-number">903</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The number of records requested to be returned  The value must be 0 or greater. Default value if not supplied is determined by the server.</p>
+<p class="description"><p>The server MAY return less than this number of records, for example if there are fewer matching records  than requested, but MUST NOT return more than this number of records.<br />  Optional.<br />  Passed as HTTP GET parameter &quot;maximumRecords&quot;. If the parameter is missing &quot;10&quot; is assumed.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnXslT">ReturnXslT()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$maximumTerms" id="global$maximumTerms"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$maximumTerms</span>
+						(line <span class="line-number">880</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The number of terms which the client requests be returned</p>
+<p class="description"><p>The actual number returned may be less than this, for example if the end of the term list is reached,  but may not be more. The explain record for the database may indicate the maximum number of terms which  the server will return at once. All positive integers are valid for this parameter. If not specified,  the default is server determined.<br />  Optional.<br />  Passed as HTTP GET parameter &quot;maximumTerms&quot;. If the parameter is missing &quot;10&quot; is assumed.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$operation" id="global$operation"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string|bool</span>
+			<span class="var-name">$operation</span>
+						(line <span class="line-number">830</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The operation requested by the client.</p>
+<p class="description"><p>Mandatory. In strict mode a diagnostic error message is shown.<br />  Passed as HTTP GET parameter &quot;operation&quot;. If $sruMode is &quot;strict&quot; this is set to false if  the paramter is missing else it's assumed to be &quot;explain&quot; <br />  See also: <a href="http://www.loc.gov/standards/sru/specs/index.html">http://www.loc.gov/standards/sru/specs/index.html</a></p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnXslT">ReturnXslT()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionHandleXFormatCases">HandleXFormatCases()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$sruMode">$sruMode</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$query" id="global$query"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string|bool</span>
+			<span class="var-name">$query</span>
+						(line <span class="line-number">842</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Contains a query expressed in CQL to be processed by the server</p>
+<p class="description"><p>See <a href="http://www.loc.gov/standards/sru/specs/cql.html">CQL</a>.<br />  Mandatory. In strict mode a diagnostic error message is shown.<br />  Passed as HTTP GET parameter &quot;query&quot;.  If $sruMode is &quot;strict&quot; this is set to false if the paramter is missing else it's assumed to be &quot;&quot;</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnXslT">ReturnXslT()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---initconfigcache.php.html#global$entries">$entries</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$sruMode">$sruMode</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$recordPacking" id="global$recordPacking"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$recordPacking</span>
+						(line <span class="line-number">924</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">A string to determine how the record should be escaped in the response</p>
+<p class="description"><p>Defined values are 'string' and 'xml'. The default is  'xml'. See <a href="http://www.loc.gov/standards/sru/specs/search-retrieve.html#records">Records</a>.<br />  Optional.<br />  Passed as HTTP GET parameter &quot;recordPacking&quot;. If the parameter is missing &quot;xml&quot; is assumed.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$recordSchema" id="global$recordSchema"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$recordSchema</span>
+						(line <span class="line-number">936</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The schema in which the records MUST be returned</p>
+<p class="description"><p>The value is the URI identifier for the schema or the short name for it  published by the server. The default value if not supplied is  determined by the server. See <a href="http://www.loc.gov/standards/sru/resources/schemas.html">Record Schemas</a>.<br />  Optional.<br />  Passed as HTTP GET parameter &quot;recordSchema&quot;. If the parameter is missing &quot;&quot; is assumed.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$responsePosition" id="global$responsePosition"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$responsePosition</span>
+						(line <span class="line-number">867</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The position within the list of terms returned where the client would like the start term to occur  If the position given is 0, then the term should be immediately before the first term in the response.</p>
+<p class="description"><p>If the position given is 1, then the term should be first in the list, and so forth up to the number of terms  requested plus 1, meaning that the term should be immediately after the last term in the response,  even if the number of terms returned is less than the number requested.  The range of values is 0 to the number of terms requested plus 1. The default value is 1.<br />  Optional.<br />  Passed as HTTP GET parameter &quot;responsePosition&quot;. If the parameter is missing &quot;&quot; is assumed.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$resultSetTTL" id="global$resultSetTTL"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$resultSetTTL</span>
+						(line <span class="line-number">968</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The number of seconds for which the client requests that the result set created should be maintained</p>
+<p class="description"><p>The server MAY choose not to fulfil this request, and may respond with a different number of seconds.  If resultSetTTL is not supplied then the server will determine the value.  See <a href="http://www.loc.gov/standards/sru/specs/search-retrieve.html#resultsets">Result Sets</a>.</p><p>Passed as HTTP GET parameter &quot;extraRequestData&quot;. If the parameter is missing &quot;&quot; is assumed.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$scanClause" id="global$scanClause"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string|bool</span>
+			<span class="var-name">$scanClause</span>
+						(line <span class="line-number">854</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The index to be browsed and the start point within it, expressed as a complete index, relation, term clause in CQL</p>
+<p class="description"><p>See <a href="http://www.loc.gov/standards/sru/specs/cql.html">CQL</a>.<br />  Mandatory. In strict mode a diagnostic error message is shown.<br />  Passed as HTTP GET parameter &quot;scanClause&quot;.  If $sruMode is &quot;strict&quot; this is set to false if the paramter is missing else it's assumed to be &quot;&quot;</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnXslT">ReturnXslT()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$sruMode">$sruMode</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$sruMode" id="global$sruMode"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$sruMode</span>
+						(line <span class="line-number">127</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Determines how parameters are checked</p>
+<p class="description"><p>If $sruMode is set to &quot;strict&quot; all mandatory params get checked and  an error message is returned if one is missing (eg. version param  not provided). If it's set to anything else eg. &quot;loose&quot; the script  just tries to fulfill the request on a best effort bases.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$version">$version</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$scanClause">$scanClause</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$query">$query</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$operation">$operation</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$startRecord" id="global$startRecord"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$startRecord</span>
+						(line <span class="line-number">913</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The position within the sequence of matched records of the first record to be returned</p>
+<p class="description"><p>The first position in the sequence is 1. The value supplied MUST be greater than 0.<br />  Optional.<br />  Passed as HTTP GET parameter &quot;startRecord&quot;. If the parameter is missing &quot;1&quot; is assumed.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnXslT">ReturnXslT()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$stylesheet" id="global$stylesheet"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$stylesheet</span>
+						(line <span class="line-number">947</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">A URL for a stylesheet</p>
+<p class="description"><p>The client requests that the server simply return this URL in the response.<br />  See <a href="http://www.loc.gov/standards/sru/specs/common.html#stylesheet">Stylesheets</a>.<br />  Optional.<br />  Passed as HTTP GET parameter &quot;stylesheet&quot;. If the parameter is missing &quot;&quot; is assumed.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$version" id="global$version"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string|bool</span>
+			<span class="var-name">$version</span>
+						(line <span class="line-number">892</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The version of the request, and a statement by the client that it wants the response to be less than, or preferably equal to, that version</p>
+<p class="description"><p>See <a href="http://www.loc.gov/standards/sru/specs/common.html#version">Versions</a>.<br />  Mandatory. In strict mode a diagnostic error message is shown.<br />  Passed as HTTP GET parameter &quot;version&quot;.  If $sruMode is &quot;strict&quot; this is set to false if the paramter is missing else it's assumed to be &quot;1.2&quot;</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$sruMode">$sruMode</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$xcontext" id="global$xcontext"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$xcontext</span>
+						(line <span class="line-number">981</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The x-context parameter passed by the client.</p>
+<p class="description"><p>Used to specify the resources for which the operation is to be performed. Resources are separated by &quot;,&quot;.  An extension to the SRU standard parameter set. Inspired by x-cmd-context where cmd stands for Component MetaData.<br />  Passed as HTTP GET parameter &quot;x-context&quot;. If the parameter is missing HTTP GET parameter &quot;x-cmd-context&quot; takes its place. If both are missing &quot;&quot; is assumed.  See also: <a href="http://www.clarin.eu/fcs">http://www.clarin.eu/fcs</a><br />  <a href="http://www.clarin.eu/cmdi">http://www.clarin.eu/cmdi</a></p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$context">$context</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnXslT">ReturnXslT()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$xdataview" id="global$xdataview"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$xdataview</span>
+						(line <span class="line-number">1002</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The x-dataview parameter passed by the client</p>
+<p class="description"><p>Used to specify which views on the result shall be returned as response.  Possible values include &quot;kwic&quot;, &quot;full&quot;, &quot;title&quot;, &quot;facs&quot;, &quot;navigation&quot; and &quot;xmlescaped&quot;.  On other values &quot;the result is undefined &quot;kwic&quot; is assumed.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+			</ul>
+	
+		
+</div>
+<a name="global$xformat" id="global$xformat"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$xformat</span>
+						(line <span class="line-number">992</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The x-format parameter passed by the client</p>
+<p class="description"><p>Used to specify the response format expected by the client. Possible values include &quot;html&quot;, &quot;xsltproc&quot;, &quot;xsl&quot; and &quot;img&quot;.  On other values XML is assumed as requested response format.  FIXME: and others???</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionHandleXFormatCases">HandleXFormatCases()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnXslT">ReturnXslT()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+			</ul>
+	
+		
+</div>
+		</div>
+	</div>
+	
+	<a name="sec-functions"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Functions</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-includes">Includes</a>
+				|													<a href="#sec-variables">Variables</a>
+				|						<span class="disabled">Functions</span>
+		</div>
+		<div class="info-box-body">	
+			<a name="functionAddParamToUrl" id="functionAddParamToUrl"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">AddParamToUrl</span> (line <span class="line-number">420</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Concats $url with the given $paramName and $paramValue</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A parameter part of a URL. Can be fed to this function again to add another parameter.</li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			AddParamToUrl
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$url</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$paramName</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$paramValue</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$url</span><span class="var-description">: url The parameter part of the URL. Initially it's assumed to be just ?</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$paramName</span><span class="var-description">: paramName A parameter name to be added.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$paramValue</span><span class="var-description">: paramValue A parameter value to be added.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionAddParamToUrlIfNotEmpty" id="functionAddParamToUrlIfNotEmpty"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">AddParamToUrlIfNotEmpty</span> (line <span class="line-number">434</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Concats $url with the given $paramName and $paramValue</p>
+<p class="description"><p>Like AddParamToUrl but adds parameter checking.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A parameter part of a URL. Can be fed to this function again to add another parameter.</li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			AddParamToUrlIfNotEmpty
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$url</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$paramName</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$paramValue</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$url</span><span class="var-description">: url The parameter part of the URL. Initially it's assumed to be just ?</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$paramName</span><span class="var-description">: paramName A parameter name to be added.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$paramValue</span><span class="var-description">: paramValue A parameter value to be added.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionGetCompleteConfig" id="functionGetCompleteConfig"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">GetCompleteConfig</span> (line <span class="line-number">306</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return all known resources</p>
+<p class="description"><p>Returns every entry from switch.config and also all  entries from fcs.resource.config.php.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> An array that contains for every resource the &quot;name&quot; (the internal id) and the &quot;label&quot; (the human intelligable name).</li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---config.php.html#global$switchConfig">$switchConfig</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$fcsConfigFound">$fcsConfigFound</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---fcs.resource.config.php.html#global$configName">$configName</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			GetCompleteConfig
+		</span>
+				()
+			</div>
+
+		
+	
+</div>
+<a name="functionGetConfig" id="functionGetConfig"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">GetConfig</span> (line <span class="line-number">258</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Opens $switchConfig and searches for an element item with an element name value that  equals $context - returns configuration infos for the found node in  an array.</p>
+<p class="description"><p>If context is not found in switch.config $configName is used to look up the information  if it exists.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> An array (a map) containing &quot;name&quot; (the internal id), &quot;type&quot; (of the resource), &quot;uri&quot; and &quot;style&quot; (the stylesheet to use with the resource).</li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionHandleXFormatCases">HandleXFormatCases()</a></li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---config.php.html#global$switchConfig">$switchConfig</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$fcsConfigFound">$fcsConfigFound</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---fcs.resource.config.php.html#global$configName">$configName</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">array|false</span>
+		<span class="method-name">
+			GetConfig
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$context</span><span class="var-description">: An internal ID for a resource.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionGetDefaultStyles" id="functionGetDefaultStyles"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">GetDefaultStyles</span> (line <span class="line-number">222</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get default xsl style sheets</p>
+<p class="description"><p>Loads $switchConfig as an XML DOM, uses XPath to fetch styles elements and  fills the settings into the $globalStyles array.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---config.php.html#global$switchConfig">$switchConfig</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$globalStyles">$globalStyles</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			GetDefaultStyles
+		</span>
+				()
+			</div>
+
+		
+	
+</div>
+<a name="functionGetDomDocument" id="functionGetDomDocument"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">GetDomDocument</span> (line <span class="line-number">559</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the XML DOM representation of the document at the URL passed as parameter</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Returns either the XML DOM representation or false.</li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionHandleXFormatCases">HandleXFormatCases()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetXslStyleDomDocument">GetXslStyleDomDocument()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---initconfigcache.php.html#functionurl_exists">url_exists()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReplaceLocalHost">ReplaceLocalHost()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">DOMDocument|false</span>
+		<span class="method-name">
+			GetDomDocument
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$url</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$url</span><span class="var-description">: A URL from which the document should be fetched.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionGetNodeValueWithAttribute" id="functionGetNodeValueWithAttribute"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">GetNodeValueWithAttribute</span> (line <span class="line-number">191</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the node value of the first occurrence of a $tagName that has an attribute $attr with the value $attrValue</p>
+<p class="description"><p>processes the descendants of $node only</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Returns the node value of the first fitting tag with $tagName with $attr which has $attrValue</li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			GetNodeValueWithAttribute
+		</span>
+					(<span class="var-type">DOMNode</span>&nbsp;<span class="var-name">$node</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$tagName</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$attr</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$attrValue</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">DOMNode</span>
+				<span class="var-name">$node</span><span class="var-description">: The Node at which the search is started.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$tagName</span><span class="var-description">: The tag to search for.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$attr</span><span class="var-description">: The attribute to search for.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$attrValue</span><span class="var-description">: The attribure value to search for.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionGetQueryUrl" id="functionGetQueryUrl"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">GetQueryUrl</span> (line <span class="line-number">465</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Generates the query url including all mandatory and optional params</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A URL string that can be used to execute the query.</li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$stylesheet">$stylesheet</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$startRecord">$startRecord</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$scanClause">$scanClause</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$version">$version</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$xdataview">$xdataview</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionHandleXFormatCases">HandleXFormatCases()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$xformat">$xformat</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$resultSetTTL">$resultSetTTL</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$responsePosition">$responsePosition</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$maximumTerms">$maximumTerms</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$maximumRecords">$maximumRecords</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$operation">$operation</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$query">$query</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$recordSchema">$recordSchema</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$recordPacking">$recordPacking</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$extraRequestData">$extraRequestData</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			GetQueryUrl
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$endPoint</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$xcontext</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$endPoint</span><span class="var-description">: The (upstream) endpoint for the query URL</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$xcontext</span><span class="var-description">: The x-context for the query URL</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$type</span><span class="var-description">: type If &quot;fcs.resource&quot; or &quot;fcs&quot; x-context is used else ignored.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionGetXslStyle" id="functionGetXslStyle"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">GetXslStyle</span> (line <span class="line-number">614</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the location of the XSL style sheet associated with $operation</p>
+<p class="description"><p>The XSL style sheet is fetched from the $globalStyles array or $configItem for &quot;searchRetrieve&quot;. If a style for one  of the operations is not set in $globalStyles the XSL style sheet for the key &quot;default&quot; is fetched.  If operation is not from the described set a diagnostic message 6 Unsupported parameter value is returned to the client.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The URL of the style sheet. If it's located on the local host the URL contains 127.0.0.1 instead of the real domain name.</li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetXslStyleDomDocument">GetXslStyleDomDocument()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReplaceLocalHost">ReplaceLocalHost()</a></li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---diagnostics.php.html#functionDiagnostics">Diagnostics()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$globalStyles">$globalStyles</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			GetXslStyle
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$operation</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$configItem</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$operation</span><span class="var-description">: The operation for which to get the XSL document. One of &quot;explain&quot;, &quot;scan&quot; or &quot;searchRetrieve&quot;</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$configItem</span><span class="var-description">: A array (a map) that has a &quot;style&quot; key. Used for passing a style for the &quot;searchRetrieve&quot; operation.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionGetXslStyleDomDocument" id="functionGetXslStyleDomDocument"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">GetXslStyleDomDocument</span> (line <span class="line-number">668</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the XSL for an $operation as DOM document</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A XSL DOM representation of the XSL style sheet document.</li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionHandleXFormatCases">HandleXFormatCases()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetXslStyle">GetXslStyle()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetDomDocument">GetDomDocument()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">DOMDocument</span>
+		<span class="method-name">
+			GetXslStyleDomDocument
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$operation</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$configItem</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$operation</span><span class="var-description">: The operation for which to get the XSL document. One of &quot;explain&quot;, &quot;scan&quot; or &quot;searchRetrieve&quot;</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$configItem</span><span class="var-description">: A array (a map) that has a &quot;style&quot; key. Used for passing a style for the &quot;searchRetrieve&quot; operation.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionHandleXFormatCases" id="functionHandleXFormatCases"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">HandleXFormatCases</span> (line <span class="line-number">754</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Main method: called after the validity of the request is checked</p>
+<p class="description"><p>Iterates over the contents of $context so processes multiple requests if  they are specified.  <ol><li>Loads the config for this particular resource.</li><li>Depending on key strings beeing part of $xformat
+ <ul><li>on &quot;html&quot;: Fetches the XML upstream and applies the XSL document specified
+ for that operation in the $switchConfig</li><li>on &quot;xsltproc&quot;: returns a diagnostic text about the XSLT processor providing EXSLT support (which is mandatory for the XSL style sheets supplied!).</li><li>on &quot;xsl&quot;: returns the stylesheet that would be used for the requested operation.</li><li>on &quot;img&quot;: the response from the upstream endpoint is returnes as if it were an image/jpeg.</li><li>on an unrecognizable string: the upstream result is returned verbatim and text/xml is assumed.</li></ul></li></ol></p></p>
+	<ul class="tags">
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetXslStyleDomDocument">GetXslStyleDomDocument()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnXmlDocument">ReturnXmlDocument()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnXslT">ReturnXslT()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetQueryUrl">GetQueryUrl()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetDomDocument">GetDomDocument()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$operation">$operation</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$xformat">$xformat</a></li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---diagnostics.php.html#functionDiagnostics">Diagnostics()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetConfig">GetConfig()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$context">$context</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			HandleXFormatCases
+		</span>
+				()
+			</div>
+
+		
+	
+</div>
+<a name="functionReplaceLocalHost" id="functionReplaceLocalHost"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">ReplaceLocalHost</span> (line <span class="line-number">545</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">To speed up local queries the local servername (contained in $localhost) is replaced</p>
+<p class="description"><p>by the term &quot;127.0.0.1&quot;</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The input URL with the hostname set to 127.0.0.1 if it matches $localhost.</li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetXslStyle">GetXslStyle()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnXmlDocument">ReturnXmlDocument()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetDomDocument">GetDomDocument()</a></li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---config.php.html#global$localhost">$localhost</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			ReplaceLocalHost
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$url</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$url</span><span class="var-description">: A URL as input.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionReturnExplain" id="functionReturnExplain"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">ReturnExplain</span> (line <span class="line-number">404</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reads the $explainSwitchTemplate and returns it</p>
+<p class="description"><p>The file is just read from disk, as this doesn't need to be filled.  content-type text/xml and charset UTF-8 are set for the answer.</p></p>
+	<ul class="tags">
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---config.php.html#global$explainSwitchTemplate">$explainSwitchTemplate</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			ReturnExplain
+		</span>
+				()
+			</div>
+
+		
+	
+</div>
+<a name="functionReturnScan" id="functionReturnScan"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">ReturnScan</span> (line <span class="line-number">368</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Fills the $scanCollectionsTemplate with all configured endpoints</p>
+<p class="description"><p>Returns the expanded template to the client.</p></p>
+	<ul class="tags">
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---config.php.html#global$vlibPath">$vlibPath</a></li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---config.php.html#global$scanCollectionsTemplate">$scanCollectionsTemplate</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			ReturnScan
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$version</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$version</span><span class="var-description">: A version that is inserted into the template.</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionReturnXmlDocument" id="functionReturnXmlDocument"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">ReturnXmlDocument</span> (line <span class="line-number">585</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return the XML Document specified by $url to the client</p>
+<p class="description"><p>Sets the response header to $headerStr. If the document can't be fetched upstream  a diagnostic message 15 Unsupported context set is returned to the client.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionHandleXFormatCases">HandleXFormatCases()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---initconfigcache.php.html#functionurl_exists">url_exists()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReplaceLocalHost">ReplaceLocalHost()</a></li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---diagnostics.php.html#functionDiagnostics">Diagnostics()</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			ReturnXmlDocument
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$url</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$headerStr</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$url</span><span class="var-description">: The URL form which the XML should be fetched.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$headerStr</span><span class="var-description">: A string that should be sent as response header</span>			</li>
+				</ul>
+		
+	
+</div>
+<a name="functionReturnXslT" id="functionReturnXslT"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Function.png" />
+		<span class="method-title">ReturnXslT</span> (line <span class="line-number">693</span>)
+	</div> 
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return an upstream XML to the client after applying an XSL style sheet transfomation</p>
+<p class="description"><p>The type of the returned document is set to text/html the encoding is set to UTF-8.</p></p>
+	<ul class="tags">
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---config.php.html#global$switchUrl">$switchUrl</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$xcontext">$xcontext</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$xformat">$xformat</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionHandleXFormatCases">HandleXFormatCases()</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$startRecord">$startRecord</a></li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---config.php.html#global$scriptsUrl">$scriptsUrl</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$operation">$operation</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$query">$query</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$scanClause">$scanClause</a></li>
+				<li><span class="field">uses:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#global$maximumRecords">$maximumRecords</a></li>
+			</ul>
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			ReturnXslT
+		</span>
+					(<span class="var-type">DOMDocument</span>&nbsp;<span class="var-name">$xmlDoc</span>, <span class="var-type">DOMDocument|SimpleXMLElement</span>&nbsp;<span class="var-name">$xslDoc</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$useParams</span>)
+			</div>
+
+			<ul class="parameters">
+					<li>
+				<span class="var-type">DOMDocument</span>
+				<span class="var-name">$xmlDoc</span><span class="var-description">: The XML input document as XML DOM representation.</span>			</li>
+					<li>
+				<span class="var-type">DOMDocument|SimpleXMLElement</span>
+				<span class="var-name">$xslDoc</span><span class="var-description">: The XSL style sheet used for the transformation.</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$useParams</span><span class="var-description">: If set $xformat and $scriptsUrl are passed to the XSL processor as parameters &quot;format&quot; and &quot;scripts_url&quot;.</span>			</li>
+				</ul>
+		
+	
+</div>
+		</div>
+	</div>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Thu, 05 Sep 2013 15:35:45 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.5.0a1</a>
+	</p>
+	</div></body>
+</html>

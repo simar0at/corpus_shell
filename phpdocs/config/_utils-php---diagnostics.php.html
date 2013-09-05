@@ -93,7 +93,8 @@
 	<div class="nav-bar">
 					<span class="disabled">Description</span> |
 									<a href="#sec-includes">Includes</a>
-			|											<a href="#sec-functions">Functions</a>
+			|									<a href="#sec-variables">Variables</a>
+			|							<a href="#sec-functions">Functions</a>
 			</div>
 	<div class="info-box-body">	
 		<!-- ========== Info from phpDoc block ========= -->
@@ -108,7 +109,8 @@
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
 						<span class="disabled">Includes</span>
-			|													<a href="#sec-functions">Functions</a>
+			|										<a href="#sec-variables">Variables</a>
+				|										<a href="#sec-functions">Functions</a>
 					</div>
 		<div class="info-box-body">	
 			<a name="_config_php"><!-- --></a>
@@ -119,17 +121,51 @@
 		<span class="include-title">
 			<span class="include-type">include</span>
 			(<span class="include-name"><a href="../config/_utils-php---config.php.html">"config.php"</a></span>)
-			(line <span class="line-number">5</span>)
+			(line <span class="line-number">11</span>)
 		</span>
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Loads the common configuration file</p>
 	
 </div>
 		</div>
 	</div>
 	
 	
+	<a name="sec-variables"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-includes">Includes</a>
+				|									<span class="disabled">Variables</span>
+			|							<a href="#sec-functions">Functions</a>
+					</div>
+		<div class="info-box-body">	
+			<a name="global$errorMessages" id="global$errorMessages"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../media/images/Global.png" />
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$errorMessages</span>
+						(line <span class="line-number">19</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Array containing all SRU diagnostic message texts</p>
+<p class="description"><p>Using this array error numbers can be mapped to (english) messages.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../config/_utils-php---diagnostics.php.html#functionDiagnostics">Diagnostics()</a></li>
+			</ul>
+	
+		
+</div>
+		</div>
+	</div>
 	
 	<a name="sec-functions"></a>	
 	<div class="info-box">
@@ -137,32 +173,45 @@
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
 										<a href="#sec-includes">Includes</a>
-				|												<span class="disabled">Functions</span>
+				|													<a href="#sec-variables">Variables</a>
+				|						<span class="disabled">Functions</span>
 		</div>
 		<div class="info-box-body">	
 			<a name="functionDiagnostics" id="functionDiagnostics"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../media/images/Function.png" />
-		<span class="method-title">Diagnostics</span> (line <span class="line-number">95</span>)
+		<span class="method-title">Diagnostics</span> (line <span class="line-number">114</span>)
 	</div> 
 
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns a standard conform XML diagnostic messsage to the client</p>
+<p class="description"><p>Fills the diagnostic template with the selected error message and  $diagnosticDetails and returns it to the client.  See alos: <a href="http://www.loc.gov/standards/sru/specs/diagnostics.html">http://www.loc.gov/standards/sru/specs/diagnostics.html</a></p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionReturnXmlDocument">ReturnXmlDocument()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionGetXslStyle">GetXslStyle()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html#functionHandleXFormatCases">HandleXFormatCases()</a></li>
+				<li><span class="field">usedby:</span> <a href="../fcs-aggregator/_fcs-aggregator---switch.php.html">switch.php</a></li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---config.php.html#global$vlibPath">$vlibPath</a></li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---diagnostics.php.html#global$errorMessages">$errorMessages</a></li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---config.php.html#global$version">$version</a></li>
+				<li><span class="field">uses:</span> <a href="../config/_utils-php---config.php.html#global$diagnosticsTemplate">$diagnosticsTemplate</a></li>
+			</ul>
 	<div class="method-signature">
 		<span class="method-result">void</span>
 		<span class="method-name">
 			Diagnostics
 		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$diagnosticId</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$diagnosticDetails</span>)
+					(<span class="var-type">$diagnosticId</span>&nbsp;<span class="var-name">$diagnosticId</span>, <span class="var-type">$diagnosticDetails</span>&nbsp;<span class="var-name">$diagnosticDetails</span>)
 			</div>
 
 			<ul class="parameters">
 					<li>
-				<span class="var-type"></span>
+				<span class="var-type">$diagnosticId</span>
 				<span class="var-name">$diagnosticId</span>			</li>
 					<li>
-				<span class="var-type"></span>
+				<span class="var-type">$diagnosticDetails</span>
 				<span class="var-name">$diagnosticDetails</span>			</li>
 				</ul>
 		
@@ -172,7 +221,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 21 Aug 2013 18:03:52 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.5.0a1</a>
+		Documentation generated on Thu, 05 Sep 2013 15:35:41 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.5.0a1</a>
 	</p>
 	</div></body>
 </html>
