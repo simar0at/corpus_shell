@@ -10,15 +10,23 @@
 <link rel="stylesheet" href="scripts/style/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="scripts/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script> 
-      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/js/URI.js"></script>
+        <script type="text/javascript" src="scripts/js/jquery/jquery.selection.js"></script>
+        <script type="text/javascript" src="scripts/js/params.js"></script>
+        <script type="text/javascript" src="scripts/js/virtual-keyboard.js"></script>
+        
+<script src="scripts/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script> 		
       <script type="text/javascript" language="javascript">
          $(document).ready(function() {
             
-               $('body').load('https://minerva.arz.oeaw.ac.at/persengldict//modules/fcs-aggregator/switch.php?x-format=htmlpagetable&operation=searchRetrieve&version=1.2&x-dataview=kwic,title&maximumRecords=10&x-context=pes_eng_032&query=senses==Persian');
-     
+               $('body').load('http://localhost/persengldict//modules/fcs-aggregator/switch.php?x-format=htmlpagetable&operation=searchRetrieve&version=1.2&x-dataview=kwic,title&maximumRecords=10&x-context=pes_eng_032&query=senses==Persian');
+     VirtualKeyboard.keys = {
+               "pes_eng_032": ["ï", "š", "ž", "ọ", "ẕ", "ṣ", "ṭ", "s̠", "ḫ", "ẓ", "â", "ḏ", "ḫ", "s̠", "ṯ", "ã", "ậ", "č", "ë", "ǧ"]
+            };
+            VirtualKeyboard.attachKeyboards();
          });
+		 
       </script>
 		
    </head>
